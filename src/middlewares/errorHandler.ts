@@ -8,24 +8,32 @@ const errors = {
   unprocessable: 422,
 }
 
-export function errorUnauthorized(message: string = null) {
+function errorUnauthorized(message: string = null) {
   throw { type: "unauthorized", message }
 }
 
-export function errorForbidden(message: string = null) {
+function errorForbidden(message: string = null) {
   throw { type: "forbidden", message }
 }
 
-export function errorNotFound(message: string = null) {
+function errorNotFound(message: string = null) {
   throw { type: "not_found", message }
 }
 
-export function errorConflict(message: string = null) {
+function errorConflict(message: string = null) {
   throw { type: "conflict", message }
 }
 
-export function errorUnprocessable(message: string = null) {
+function errorUnprocessable(message: string = null) {
   throw { type: "unprocessable", message }
+}
+
+export const Error = {
+  errorUnauthorized,
+  errorForbidden,
+  errorNotFound,
+  errorConflict,
+  errorUnprocessable,
 }
 
 export default function errorHandler(error, req: Request, res: Response, next: NextFunction) {

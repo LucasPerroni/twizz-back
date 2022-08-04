@@ -14,3 +14,71 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Users {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  image     String
+  createdAt DateTime @default(now())
+
+  Decks     Decks[]
+  Favorites Favorites[]
+  user      Followers[] @relation("user")
+  follower  Followers[] @relation("follower")
+
+  @@map("users")
+}
+
+model Decks {
+  id        Int      @id @default(autoincrement())
+  name      String
+  userId    Int
+  createdAt DateTime @default(now())
+
+  user      Users       @relation(fields: [userId], references: [id])
+  Questions Questions[]
+  Favorites Favorites[]
+
+  @@map("decks")
+}
+
+model Questions {
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  image     String?
+  deckId    Int
+  createdAt DateTime @default(now())
+
+  deck Decks @relation(fields: [deckId], references: [id])
+
+  @@map("questions")
+}
+
+model Favorites {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  deckId    Int
+  createdAt DateTime @default(now())
+
+  user Users @relation(fields: [userId], references: [id])
+  deck Decks @relation(fields: [deckId], references: [id])
+
+  @@unique([userId, deckId])
+  @@map("favorites")
+}
+
+model Followers {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  followerId Int
+  createdAt  DateTime @default(now())
+
+  user     Users @relation("user", fields: [userId], references: [id])
+  follower Users @relation("follower", fields: [followerId], references: [id])
+
+  @@unique([userId, followerId])
+  @@map("followers")
+}
