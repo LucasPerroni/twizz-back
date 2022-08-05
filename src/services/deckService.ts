@@ -4,12 +4,8 @@ import deckRepository from "../repositories/deckRepository.js"
 import authRepository from "../repositories/authRepository.js"
 import { Error } from "../middlewares/errorHandler.js"
 
-async function blockCreation(name: string, bodyUserId: number, tokenUserId: number) {
-  if (bodyUserId !== tokenUserId) {
-    Error.errorUnauthorized("Conflict between userId and token")
-  }
-
-  const user = await authRepository.findUserById(tokenUserId)
+async function blockCreation(name: string, userId: number) {
+  const user = await authRepository.findUserById(userId)
   if (!user) {
     Error.errorNotFound("Couldn't find a user with this id")
   }
@@ -37,10 +33,44 @@ async function createQuestions(
   await deckRepository.createQuestions(newData)
 }
 
+async function getAllUserDecks(id: string, offset: string) {
+  if (!Number(id) || (!Number(offset) && offset !== "0")) {
+    Error.errorUnprocessable("UserId and Offset must be numbers")
+  }
+
+  const decks = await deckRepository.findDeckByUserId(Number(id), Number(offset))
+  return decks
+}
+
+async function getOneDeck(id: string) {
+  if (!Number(id)) {
+    Error.errorUnprocessable("DeckId must be a number")
+  }
+
+  const deck = await deckRepository.findDeckById(Number(id))
+  if (!deck) {
+    Error.errorNotFound("Couldn't find a deck with that id")
+  }
+
+  return deck
+}
+
+async function getAllDecks(offset: string) {
+  if (!Number(offset) && offset !== "0") {
+    Error.errorUnprocessable("Offset must be a number")
+  }
+
+  const decks = await deckRepository.findAllDecks(Number(offset))
+  return decks
+}
+
 const deckService = {
   blockCreation,
   createDeck,
   createQuestions,
+  getAllUserDecks,
+  getOneDeck,
+  getAllDecks,
 }
 
 export default deckService

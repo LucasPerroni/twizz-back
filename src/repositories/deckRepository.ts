@@ -8,8 +8,85 @@ async function findDeckByData(name: string, userId: number) {
 }
 
 async function findDeckById(id: number) {
-  const deck = await prisma.decks.findUnique({ where: { id } })
+  const deck = await prisma.decks.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      Questions: {
+        select: {
+          id: true,
+          question: true,
+          answer: true,
+          image: true,
+        },
+      },
+      user: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+    },
+  })
   return deck
+}
+
+async function findDeckByUserId(userId: number, offset: number) {
+  const decks = await prisma.decks.findMany({
+    skip: offset,
+    take: 10,
+    where: { userId },
+    select: {
+      id: true,
+      name: true,
+      Questions: {
+        select: {
+          id: true,
+          question: true,
+          answer: true,
+          image: true,
+        },
+      },
+      user: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+    },
+  })
+  return decks
+}
+
+async function findAllDecks(offset: number) {
+  const decks = await prisma.decks.findMany({
+    skip: offset,
+    take: 10,
+    orderBy: { Favorites: { _count: "desc" } },
+    select: {
+      id: true,
+      name: true,
+      Questions: {
+        select: {
+          id: true,
+          question: true,
+          answer: true,
+          image: true,
+        },
+      },
+      user: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+    },
+  })
+  return decks
 }
 
 async function createDeck(data: Omit<Decks, "id" | "createdAt">) {
@@ -26,6 +103,8 @@ const deckRepository = {
   findDeckById,
   createDeck,
   createQuestions,
+  findDeckByUserId,
+  findAllDecks,
 }
 
 export default deckRepository

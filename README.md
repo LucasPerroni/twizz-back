@@ -57,11 +57,31 @@ POST /deck (authenticated)
     - headers: { "Authorization": "Bearer $token" }
     - body: {
         "name": "loremipsum",
-        "userId": x,
         "questions": [{
           "question": "loremipsum",
           "answer": "loremipsum",
           "image": "https://..." | null
         }]
     }
+```
+
+```yml
+GET /decks/user/:userId/:offset (authenticated)
+    - Route to get all user decks, 10 by request
+    - headers: { "Authorization": "Bearer $token" }
+    - body: {}
+```
+
+```yml
+GET /deck/:deckId (authenticated)
+    - Route to get a specific deck
+    - headers: { "Authorization": "Bearer $token" }
+    - body: {}
+```
+
+```yml
+GET /decks/all/:offset (authenticated)
+    - Route to get all decks, 10 by request
+    - headers: { "Authorization": "Bearer $token" }
+    - body: {}
 ```
