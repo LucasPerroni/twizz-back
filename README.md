@@ -50,3 +50,18 @@ POST /sign-in
         "password": "loremipsum"
     }
 ```
+
+```yml
+POST /deck (authenticated)
+    - Route to create a deck
+    - headers: { "Authorization": "Bearer $token" }
+    - body: {
+        "name": "loremipsum",
+        "userId": x,
+        "questions": [{
+          "question": "loremipsum",
+          "answer": "loremipsum",
+          "image": "https://..." | null
+        }]
+    }
+```

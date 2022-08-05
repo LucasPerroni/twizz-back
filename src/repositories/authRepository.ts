@@ -7,12 +7,18 @@ async function findUserByEmail(email: string) {
   return user
 }
 
+async function findUserById(id: number) {
+  const user = await prisma.users.findUnique({ where: { id } })
+  return user
+}
+
 async function createUser(data: Omit<Users, "id" | "createdAt">) {
   await prisma.users.create({ data })
 }
 
 const authRepository = {
   findUserByEmail,
+  findUserById,
   createUser,
 }
 
