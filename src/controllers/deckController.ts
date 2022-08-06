@@ -8,7 +8,7 @@ export async function createDeck(req: Request, res: Response) {
   const body: DeckSchema = req.body
 
   await deckService.blockCreation(body.name, userId)
-  const deck = await deckService.createDeck({ name: body.name, userId })
+  const deck = await deckService.createDeck({ name: body.name, description: body.description, userId })
   await deckService.createQuestions(body.questions, deck.id)
 
   res.sendStatus(201)

@@ -13,6 +13,7 @@ async function findDeckById(id: number) {
     select: {
       id: true,
       name: true,
+      description: true,
       Questions: {
         select: {
           id: true,
@@ -41,6 +42,7 @@ async function findDeckByUserId(userId: number, offset: number) {
     select: {
       id: true,
       name: true,
+      description: true,
       Questions: {
         select: {
           id: true,
@@ -69,6 +71,7 @@ async function findAllDecks(offset: number) {
     select: {
       id: true,
       name: true,
+      description: true,
       Questions: {
         select: {
           id: true,

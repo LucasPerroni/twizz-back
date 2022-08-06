@@ -57,6 +57,7 @@ POST /deck (authenticated)
     - headers: { "Authorization": "Bearer $token" }
     - body: {
         "name": "loremipsum",
+        "description": "loremipsum" (max 200 char) | null,
         "questions": [{
           "question": "loremipsum",
           "answer": "loremipsum",

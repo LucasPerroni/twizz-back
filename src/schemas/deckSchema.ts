@@ -2,6 +2,7 @@ import joi from "joi"
 
 export interface DeckSchema {
   name: string
+  description: string
   questions: [
     {
       question: string
@@ -13,6 +14,7 @@ export interface DeckSchema {
 
 export const deckSchema = joi.object<DeckSchema>({
   name: joi.string().required(),
+  description: joi.string().max(200),
   questions: joi
     .array()
     .items(
