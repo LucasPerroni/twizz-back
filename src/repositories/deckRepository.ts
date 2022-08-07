@@ -14,6 +14,7 @@ async function findDeckById(id: number) {
       id: true,
       name: true,
       description: true,
+      createdAt: true,
       Questions: {
         select: {
           id: true,
@@ -38,11 +39,13 @@ async function findDeckByUserId(userId: number, offset: number) {
   const decks = await prisma.decks.findMany({
     skip: offset,
     take: 10,
+    orderBy: { createdAt: "desc" },
     where: { userId },
     select: {
       id: true,
       name: true,
       description: true,
+      createdAt: true,
       Questions: {
         select: {
           id: true,
@@ -67,11 +70,12 @@ async function findAllDecks(offset: number) {
   const decks = await prisma.decks.findMany({
     skip: offset,
     take: 10,
-    orderBy: { Favorites: { _count: "desc" } },
+    orderBy: [{ Favorites: { _count: "desc" } }, { createdAt: "desc" }],
     select: {
       id: true,
       name: true,
       description: true,
+      createdAt: true,
       Questions: {
         select: {
           id: true,
