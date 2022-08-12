@@ -86,3 +86,17 @@ GET /decks/all/:offset (authenticated)
     - headers: { "Authorization": "Bearer $token" }
     - body: {}
 ```
+
+```yml
+GET /decks/number (authenticated)
+    - Route to get total number of decks
+    - headers: { "Authorization": "Bearer $token" }
+    - body: {}
+```
+
+```yml
+GET /decks/number/:userId (authenticated)
+    - Route to get total number of decks of an user
+    - headers: { "Authorization": "Bearer $token" }
+    - body: {}
+```

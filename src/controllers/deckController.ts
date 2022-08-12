@@ -31,3 +31,14 @@ export async function getAllDecks(req: Request, res: Response) {
   const decks = await deckService.getAllDecks(offset)
   res.status(200).send(decks)
 }
+
+export async function getDeckNumber(req: Request, res: Response) {
+  const number = await deckService.getDeckNumber()
+  res.status(200).send({ totalDecks: number })
+}
+
+export async function getUserDeckNumber(req: Request, res: Response) {
+  const { userId } = req.params
+  const number = await deckService.getUserDeckNumber(userId)
+  res.status(200).send({ totalDecks: number })
+}

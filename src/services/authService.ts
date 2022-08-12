@@ -31,7 +31,7 @@ async function checkPassword(user: Users, password: string) {
 export function createToken(user: Users) {
   const data = { userId: user.id }
   const key = process.env.JWT_KEY
-  const config = { expiresIn: 60 * 60 } // 60 minutes
+  const config = { expiresIn: 60 * 60 * 2 } // 2 hours
 
   const token = jwt.sign(data, key, config)
   return token

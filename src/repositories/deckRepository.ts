@@ -96,6 +96,16 @@ async function findAllDecks(offset: number) {
   return decks
 }
 
+async function getDeckNumber() {
+  const number = await prisma.decks.count()
+  return number
+}
+
+async function getUserDeckNumber(id: number) {
+  const number = await prisma.decks.count({ where: { userId: id } })
+  return number
+}
+
 async function createDeck(data: Omit<Decks, "id" | "createdAt">) {
   const deck = await prisma.decks.create({ data })
   return deck
@@ -112,6 +122,8 @@ const deckRepository = {
   createQuestions,
   findDeckByUserId,
   findAllDecks,
+  getDeckNumber,
+  getUserDeckNumber,
 }
 
 export default deckRepository

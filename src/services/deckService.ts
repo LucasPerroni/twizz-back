@@ -64,6 +64,20 @@ async function getAllDecks(offset: string) {
   return decks
 }
 
+async function getDeckNumber() {
+  const number = await deckRepository.getDeckNumber()
+  return number
+}
+
+async function getUserDeckNumber(id: string) {
+  if (!Number(id)) {
+    Error.errorUnprocessable("userId must be a number")
+  }
+
+  const number = await deckRepository.getUserDeckNumber(Number(id))
+  return number
+}
+
 const deckService = {
   blockCreation,
   createDeck,
@@ -71,6 +85,8 @@ const deckService = {
   getAllUserDecks,
   getOneDeck,
   getAllDecks,
+  getDeckNumber,
+  getUserDeckNumber,
 }
 
 export default deckService
