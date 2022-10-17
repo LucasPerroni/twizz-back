@@ -21,5 +21,6 @@ deckRouter.delete(
   validateSchema(favoriteSchema),
   deckController.unfavoriteDeck
 )
+deckRouter.get("/decks/favorite", validateToken, deckController.getFavorites)
 
 export default deckRouter

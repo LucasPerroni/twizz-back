@@ -126,6 +126,42 @@ async function unfavoriteDeck(userId: number, deckId: number) {
   await prisma.favorites.delete({ where: { userId_deckId: { userId, deckId } } })
 }
 
+async function getFavorites(userId: number) {
+  const decks = await prisma.favorites.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      deck: {
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          createdAt: true,
+          _count: { select: { Favorites: true } },
+          Questions: {
+            select: {
+              id: true,
+              question: true,
+              answer: true,
+              image: true,
+            },
+          },
+          user: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      },
+    },
+  })
+
+  return decks
+}
+
 const deckRepository = {
   findDeckByData,
   findDeckById,
@@ -137,6 +173,7 @@ const deckRepository = {
   getUserDeckNumber,
   favoriteDeck,
   unfavoriteDeck,
+  getFavorites,
 }
 
 export default deckRepository

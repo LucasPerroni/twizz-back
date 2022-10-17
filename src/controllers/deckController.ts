@@ -58,3 +58,9 @@ export async function unfavoriteDeck(req: Request, res: Response) {
   await deckService.unfavoriteDeck(userId, deckId)
   res.sendStatus(200)
 }
+
+export async function getFavorites(req: Request, res: Response) {
+  const { userId } = res.locals
+  const decks = await deckService.getFavorites(userId)
+  res.status(200).send({ decks })
+}

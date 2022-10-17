@@ -114,3 +114,10 @@ DELETE /decks/favorite (authenticated)
     - headers: { "Authorization": "Bearer $token" }
     - body: { "deckId": $number }
 ```
+
+```yml
+GET /decks/favorite (authenticated)
+    - Get all favorited decks of the user
+    - headers: { "Authorization": "Bearer $token" }
+    - body: {}
+```
