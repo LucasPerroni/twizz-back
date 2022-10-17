@@ -15,5 +15,11 @@ deckRouter.get("/decks/all/:offset", validateToken, deckController.getAllDecks)
 deckRouter.get("/decks/number", validateToken, deckController.getDeckNumber)
 deckRouter.get("/decks/number/:userId", validateToken, deckController.getUserDeckNumber)
 deckRouter.post("/decks/favorite", validateToken, validateSchema(favoriteSchema), deckController.favoriteDeck)
+deckRouter.delete(
+  "/decks/favorite",
+  validateToken,
+  validateSchema(favoriteSchema),
+  deckController.unfavoriteDeck
+)
 
 export default deckRouter

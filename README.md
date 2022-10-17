@@ -107,3 +107,10 @@ POST /decks/favorite (authenticated)
     - headers: { "Authorization": "Bearer $token" }
     - body: { "deckId": $number }
 ```
+
+```yml
+DELETE /decks/favorite (authenticated)
+    - Unfavorite a deck
+    - headers: { "Authorization": "Bearer $token" }
+    - body: { "deckId": $number }
+```

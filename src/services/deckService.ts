@@ -82,6 +82,10 @@ async function favoriteDeck(userId: number, deckId: number) {
   await deckRepository.favoriteDeck(userId, deckId)
 }
 
+async function unfavoriteDeck(userId: number, deckId: number) {
+  await deckRepository.unfavoriteDeck(userId, deckId)
+}
+
 const deckService = {
   blockCreation,
   createDeck,
@@ -92,6 +96,7 @@ const deckService = {
   getDeckNumber,
   getUserDeckNumber,
   favoriteDeck,
+  unfavoriteDeck,
 }
 
 export default deckService

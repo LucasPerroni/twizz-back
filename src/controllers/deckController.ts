@@ -48,6 +48,13 @@ export async function favoriteDeck(req: Request, res: Response) {
   const { deckId } = req.body
 
   await deckService.favoriteDeck(userId, deckId)
-
   res.sendStatus(201)
+}
+
+export async function unfavoriteDeck(req: Request, res: Response) {
+  const { userId } = res.locals
+  const { deckId } = req.body
+
+  await deckService.unfavoriteDeck(userId, deckId)
+  res.sendStatus(200)
 }
