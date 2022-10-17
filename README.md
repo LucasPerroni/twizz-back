@@ -100,3 +100,10 @@ GET /decks/number/:userId (authenticated)
     - headers: { "Authorization": "Bearer $token" }
     - body: {}
 ```
+
+```yml
+POST /decks/favorite (authenticated)
+    - Favorite a deck
+    - headers: { "Authorization": "Bearer $token" }
+    - body: { "deckId": $number }
+```

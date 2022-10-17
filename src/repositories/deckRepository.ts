@@ -15,6 +15,7 @@ async function findDeckById(id: number) {
       name: true,
       description: true,
       createdAt: true,
+      _count: { select: { Favorites: true } },
       Questions: {
         select: {
           id: true,
@@ -46,6 +47,7 @@ async function findDeckByUserId(userId: number, offset: number) {
       name: true,
       description: true,
       createdAt: true,
+      _count: { select: { Favorites: true } },
       Questions: {
         select: {
           id: true,
@@ -76,6 +78,7 @@ async function findAllDecks(offset: number) {
       name: true,
       description: true,
       createdAt: true,
+      _count: { select: { Favorites: true } },
       Questions: {
         select: {
           id: true,
@@ -115,6 +118,10 @@ async function createQuestions(data: Omit<Questions, "id" | "createdAt" | "image
   await prisma.questions.createMany({ data })
 }
 
+async function favoriteDeck(userId: number, deckId: number) {
+  await prisma.favorites.create({ data: { userId, deckId } })
+}
+
 const deckRepository = {
   findDeckByData,
   findDeckById,
@@ -124,6 +131,7 @@ const deckRepository = {
   findAllDecks,
   getDeckNumber,
   getUserDeckNumber,
+  favoriteDeck,
 }
 
 export default deckRepository

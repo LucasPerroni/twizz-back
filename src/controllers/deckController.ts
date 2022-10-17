@@ -42,3 +42,12 @@ export async function getUserDeckNumber(req: Request, res: Response) {
   const number = await deckService.getUserDeckNumber(userId)
   res.status(200).send({ totalDecks: number })
 }
+
+export async function favoriteDeck(req: Request, res: Response) {
+  const { userId } = res.locals
+  const { deckId } = req.body
+
+  await deckService.favoriteDeck(userId, deckId)
+
+  res.sendStatus(201)
+}
